@@ -1,0 +1,143 @@
+{
+	"info": {
+		"_postman_id": "017738b7-7da2-4fc3-8de6-738a0ca823e7",
+		"name": "Petstore User API Automation Tests",
+		"description": "Automation tests for Petstore user endpoints: Create, Get, and Update User",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "45080490",
+		"_collection_link": "https://larasparamitha-4542075.postman.co/workspace/Laras-Paramitha's-Workspace~837cf727-ecd5-4727-89fd-d810ff55be9e/collection/45080490-017738b7-7da2-4fc3-8de6-738a0ca823e7?action=share&source=collection_link&creator=45080490"
+	},
+	"item": [
+		{
+			"name": "Create User - POST /user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Response contains message field\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.have.property(\"message\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": 1001,\n    \"username\": \"testuser_api\",\n    \"firstName\": \"API\",\n    \"lastName\": \"User\",\n    \"email\": \"testuser_api@example.com\",\n    \"password\": \"secure123\",\n    \"phone\": \"0800000000\",\n    \"userStatus\": 0\n}"
+				},
+				"url": {
+					"raw": "https://petstore.swagger.io/v2/user",
+					"protocol": "https",
+					"host": [
+						"petstore",
+						"swagger",
+						"io"
+					],
+					"path": [
+						"v2",
+						"user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get User - GET /user/{username}",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Correct user returned\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.username).to.eql(\"testuser_api\");",
+							"    pm.expect(jsonData.email).to.eql(\"testuser_api@example.com\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://petstore.swagger.io/v2/user/testuser_api",
+					"protocol": "https",
+					"host": [
+						"petstore",
+						"swagger",
+						"io"
+					],
+					"path": [
+						"v2",
+						"user",
+						"testuser_api"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update User - PUT /user/{username}",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": 1001,\n    \"username\": \"testuser_api\",\n    \"firstName\": \"UpdatedAPI\",\n    \"lastName\": \"User\",\n    \"email\": \"updateduser_api@example.com\",\n    \"password\": \"newsecure123\",\n    \"phone\": \"0811111111\",\n    \"userStatus\": 1\n}"
+				},
+				"url": {
+					"raw": "https://petstore.swagger.io/v2/user/testuser_api",
+					"protocol": "https",
+					"host": [
+						"petstore",
+						"swagger",
+						"io"
+					],
+					"path": [
+						"v2",
+						"user",
+						"testuser_api"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
